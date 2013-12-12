@@ -58,4 +58,5 @@ TiddlyWikiの特徴を[Wikipedia/TiddlyWiki](http://ja.wikipedia.org/wiki/Tiddly
 
 ## Googleドキュメントじゃだめなの？
 それもまた賢い選択でしょう。
+
 しかし、「Google」が窮屈に感じるのであれば、このオープンなアクティビティに参加してみませんか？
