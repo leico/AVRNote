@@ -513,13 +513,196 @@ Also see [[AdvancedOptions]]</pre>
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
-<div title="MainMenu" creator="leico" modifier="leico" created="201108040628" modified="201108040630" changecount="4">
-<pre>----
+<div title="AVRBlinkLED" creator="leico" modifier="leico" created="201310251709" modified="201310251738" changecount="4">
+<pre>!LEDを点滅させる
+
+!!材料
+*[[LED|http://akizukidenshi.com/catalog/g/gI-00563/]]
+*[[330Ω抵抗|http://akizukidenshi.com/catalog/g/gR-25331/]]
+
+!!プログラム
+{{{
+#include &lt;avr/io.h&gt;
+#include &lt;util/delay.h&gt; // has some delay functions you can use
+
+int main(void)
+{
+	DDRC=0xff; // all C ports as output
+	while(1)
+	{
+		//TODO:: Please write your application code
+		PORTC=0xff; // turn on all C porst
+		_delay_ms(200); // wait 200 milliseconds
+		PORTC=0x00; // turn off all c ports
+		_delay_ms(200); // wait 200 milliseconds
+	}
+}
+}}}
+参考リンク先では{{{avr/delay.h}}}をインクルードしているが、
+AVR Studio 6.1で確認したところ{{{util/delay.h}}}へ移動したらしい。
+
+!!図
+[img[img/03_blink01.png]]
+
+!!画像
+[img[img/03_blink02.jpg]]
+
+!!参考
+http://allaboutee.com/2011/05/11/how-to-program-an-avr-microcontroller/
+
+
+
+
+</pre>
+</div>
+<div title="AVRGettingStarted" creator="leico" modifier="leico" created="201310251324" modified="201310251329" changecount="3">
+<pre>!はじめに
+
+!!AVRISPの入手
+AVRのプログラムを書き込むハード、Writerを購入する。
+
+*[[秋月電子|http://akizukidenshi.com/catalog/g/gM-02582/]]
+*[[マルツパーツ|http://www.marutsu.co.jp/shohin_18565/]]
+*[[千石電商|http://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=7DBK-S7LE]]
+
+!!AVR Studioのインストール
+Atmelの[[ここから|http://www.atmel.com/tools/atmelstudio.aspx]]ダウンロードする。
+
+!!書き込み用基板の制作
+[[書き込み用基板の制作|AVRWritingCircuit]]
+
+
+
+
+
+
+</pre>
+</div>
+<div title="AVRStudio6" creator="leico" modifier="leico" created="201310251740" modified="201310251811" changecount="21">
+<pre>!AVR Studio 6の使い方
+
+!!コンパイルまでの流れ
+
+!!!新規プロジェクトの作成
+初めに
+&gt;ファイル→新規→新規プロジェクト
+で新しくプロジェクトを作成します。
+プロジェクトの形式は
+{{{GCC C Executable Project}}}
+で問題ありませんでした。
+[img[img/02_Compile01.png]]
+
+!!!デバイスの設定
+すると、AVR Studioで使えるデバイスの一覧が表示されます。
+この中から合致するもの、今回は''~ATMega328P''を選択します。
+[img[img/02_Compile02.png]]
+ここまででCのソースコードが表示され、プログラムを記述する事が出来ます。
+Cのソースをコンパイルするには
+&gt;Build→Build Solution
+とするとコンパイルを行う事ができます。
+
+
+!!!デバイスの設定
+実際にAVRに書き込む時の準備を行います。
+
+''AVRISPを接続した状態でAVR Studioを起動します。''
+
+&gt;Tools→Device Programming
+を開きます。
+[img[img/02_Compile03.png]]
+このような画面が表示され、左上にAVRISPや書き込むデバイスが表示されます。
+
+次に右側のReadを押すと書き込み先のデバイスの番号、及びVCCの電圧が表示されます。
+
+*''デバイスが接続されていないと何もでません。''
+*''~ATMega328Pを使っていると必ず画面のナンバーと同じものが表示されます。''
+*''電圧が入っていないと書き込めません。必ず電源を外からとりましょう''
+*''電源が足りない場合、AVRISP側のLEDも赤色に光ります。''
+
+
+!!!コンパイルしたものを書き込む
+左側からmemoriesタブをクリックし、画像と同じような画面にします。
+[img[img/02_Compile04.png]]
+
+コンパイルが完了した
+{{{***.hex}}}
+というファイルを読み込みます。通常ならば初期値と同じ階層に存在しているはずです。
+その後、
+{{{Program}}}
+というボタンを押す事でAVR側にプログラムが書き込まれます。
+
+
+!!参考
+http://allaboutee.com/2011/05/11/how-to-program-an-avr-microcontroller/
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+<div title="AVRWritingCircuit" creator="leico" modifier="leico" created="201310251329" modified="201310251759" changecount="11">
+<pre>!書き込み用基板の制作
+
+AVR自体が他のものが繋がっていても書き込みが可能なので、
+巷にあるサンプルはAVRISP自体から制作するか、何か他の機能が付随するものがほとんど。
+書き込み専用の基盤が無かったので作ってみた。
+使ったAVRは~ATMega328P。Arduinoに載っているやつ。
+
+
+!!必要な材料
+
+*[[プリント基板|http://akizukidenshi.com/catalog/g/gP-00518/]]
+*[[はんだ|http://akizukidenshi.com/catalog/g/gT-02594/]]
+*[[4.7kΩ抵抗|http://akizukidenshi.com/catalog/g/gR-25472/]]
+*[[配線|http://akizukidenshi.com/catalog/g/gP-02220/]]
+**抵抗の切った足でも大丈夫。
+*[[ピンヘッダ|http://akizukidenshi.com/catalog/g/gC-00167/]]
+*[[ピンフレーム|http://akizukidenshi.com/catalog/g/gC-05779/]]
+*[[電源用電池ボックス|http://akizukidenshi.com/catalog/g/gP-02667/]]
+*[[ICソケット|http://akizukidenshi.com/catalog/g/gP-00025/]]
+
+!!配線図
+[img[img/01_Writer.png]]
+灰色がはんだ付け出来る側、青色が表の配線。矢印の方向がAVRISPのコネクタ上方向
+AVRISPのピンにはVCCと書いてある場所があるが、''電源を供給してくれないので外部電源が必要。''
+電源は単3電池3本を使った。
+
+!!画像
+[img[img/01_under.jpg]]
+[img[img/01_forward.jpg]]
+
+
+!!動作確認
+[[AVR Studio6の使い方|AVRStudio6]]
+[[最初のプログラム|AVRBlinkLED]]
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+<div title="MainMenu" creator="leico" modifier="leico" created="201108040628" modified="201310251739" changecount="10">
+<pre>[[はじめに|AVRGettingStarted]]
+[[AVR Studio6の使い方|AVRStudio6]]
+[[初めのプログラム|AVRBlinkLED]]
+----
 [[GettingStarted]]
 [[このメニューの編集|MainMenu]]
 [[TiddlyWiki書式|WikiStyle]]</pre>
 </div>
-<div title="WikiStyle" creator="leico" modifier="leico" created="201108040628" modified="201108040629" changecount="2">
+<div title="WikiStyle" creator="leico" modifier="leico" created="201108040628" modified="201310251403" changecount="4">
 <pre>改行してただ打っているだけでも十分メモ帳として機能するわけですが、''強調したい！''とか''表組みにしたい！''とか色々表現したいこともあると思います。
 とはいえ、''わざわざHTMLを書くのは面倒くさい！''というのが正直なところです。
 

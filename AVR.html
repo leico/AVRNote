@@ -693,14 +693,155 @@ AVRISPのピンにはVCCと書いてある場所があるが、''電源を供給
 
 </pre>
 </div>
-<div title="MainMenu" creator="leico" modifier="leico" created="201108040628" modified="201310251739" changecount="10">
+<div title="HowToUse" creator="YourName" modifier="YourName" created="201401140241" modified="201401140259" changecount="12">
+<pre>!~TiddlyWikiの使い方
+個人的な~TiddlyWikiの使い方を紹介します。
+
+!!編集について
+記事をダブルクリックすると編集画面に移行します。
+編集画面に移行した後、右上の''done''で編集終了、''cancel''で中止します。
+''deleteは記事を消去しますので注意してください。''
+
+!!リンクについて
+~TiddlyWikiはスペースが間に存在しない、2文字以上の大文字が存在する単語を別ページへのリンクとして認識します。
+&gt;リンクじゃない場合は単語の先頭に「''~''」を追加すると普通の文章として表示されます。
+例えば、このページはHowToUseというページです。
+
+!!ページを新規作成する
+まだ内容が記述されていないページへのリンクの場合、リンクが//斜め文字//になります。
+そのリンクを踏み、内容を書き込むと新しいページが作られます。
+
+!!変更を保存する
+ページの一番上にメニューが出ていない場合、メニューを出してください。
+メニューは右上の''backstage''から出す事が出来ます。
+これがメニューが存在しない時
+[img[./img/00_hidden.png]]
+これがメニューが存在する時
+[img[./img/00_menu.png]]
+
+メニュー左上の''save''を押すと変更を保存します。
+''saveを押さないと保存されないので注意''
+
+また、ブラウザによっては保存が出来ない可能性があります。
+Firefoxの場合、[[TiddlyFox|https://addons.mozilla.org/ja/firefox/addon/tiddlyfox/]]のプラグインを入れる必要があります。
+
+!!様々な記法について
+
+試す場合は[[砂場|SandBox]]にてお願いします。
+
+
+
+
+</pre>
+</div>
+<div title="MainMenu" creator="leico" modifier="YourName" created="201108040628" modified="201401140253" changecount="13">
 <pre>[[はじめに|AVRGettingStarted]]
 [[AVR Studio6の使い方|AVRStudio6]]
 [[初めのプログラム|AVRBlinkLED]]
 ----
 [[GettingStarted]]
+[[TiddlyWikiの使い方|HowToUse]]
+[[砂場|SandBox]]
 [[このメニューの編集|MainMenu]]
 [[TiddlyWiki書式|WikiStyle]]</pre>
+</div>
+<div title="SandBox" creator="YourName" modifier="YourName" created="201401140254" changecount="1">
+<pre>改行してただ打っているだけでも十分メモ帳として機能するわけですが、''強調したい！''とか''表組みにしたい！''とか色々表現したいこともあると思います。
+とはいえ、''わざわざHTMLを書くのは面倒くさい！''というのが正直なところです。
+
+そこでTiddlyWikiではぱっと見た感じで分かりやすく簡単な表記方法でこういったことを実現しています。
+
+たとえば、太字にする場合は半角の単一引用符を二つ囲み「’’太字にする’’」と書いていると「''太字にする''」という風に表示してくれます。
+
+こういう機能すら面倒な場合はさらっと「こういうことができるんだ」という風に見ていただければよいかと思います。
+必要な時に使うことができれば、いいのですから。
+
+それでは順を追ってご紹介します。詳しくはここをダブルクリックして、ソースをご覧下さい :)
+
+!文字装飾
+''太字''
+==取消線==
+__下線__
+//斜体//
+2^^3^^=8
+a~~ij~~ = -a~~ji~~
+@@ハイライト@@
+@@color(green):着色（ここでは緑）@@
+@@bgcolor(#000000):color(#00FFFF):a背景色の設定もできます。@@
+
+{{{
+ &lt;monospacedtext&gt;固定幅な表示&lt;/monospacedtext&gt;
+ if($hogehoge != ''){
+ /*
+ ほげほげ
+ */
+ }
+}}}
+
+!水平線
+文書の区切りを明示する時に。
+----
+
+!通常リスト
+箇条書きなんかに使うやつです。
+* 一段目
+** 階層化もできます。
+** 同一レベルに記述するとこんなかんじ。
+* そして元に戻ります。
+
+!番号リスト
+序数を付けたリストです。
+#item1
+#item2
+##item2.1
+##item2.2
+##item2.3
+#item3
+##item3.1
+###item3.1.1
+###item3.1.2
+
+!見出し
+いわゆる{{{&lt;h2&gt;...&lt;/h2&gt;}}}などに相当する見出しです。五段階に対応してます。
+
+!Header 1
+!!Header 2
+!!!Header 3
+!!!!Header 4
+!!!!!Header 5
+
+!外部リンク
+他のサイトへのリンクをする場合、[[Google|http://www.google.com/]]などと記載します。
+
+!画像の埋込み
+[img[Google|http://www.google.co.jp/images/logo_sm.gif]]なんてことも可能です。
+
+同じフォルダにある場合はパス名は不要なようです。
+
+!引用
+JeremyRuston said:
+&lt;&lt;&lt;
+A TiddlyWiki is like a blog because it's divided up into neat little chunks, but it encourages you to read it by hyperlinking rather than sequentially: if you like, a non-linear blog analogue that binds the individual microcontent items into a cohesive whole. I think that TiddlyWiki represents a novel medium for writing, and will promote it's own distinctive WritingStyle. This is the first version of TiddlyWiki and so, as discussed in TiddlyWikiDev, it's bound to be FullOfBugs, have many MissingFeatures and fail to meet all of the DesignGoals. And of course there's NoWarranty, and it might be judged a StupidName.
+&lt;&lt;&lt;
+
+&gt;level 1
+&gt;level 1
+&gt;&gt;level 2
+&gt;&gt;level 2
+&gt;&gt;&gt;level 3
+&gt;&gt;&gt;level 3
+&gt;&gt;level 2
+&gt;level 1
+
+!表組
+|!th1111111111|!th2222222222|
+|&gt;| colspan |
+| rowspan |left|
+|~| right|
+|bgcolor(#a0ffa0):colored| center |
+|caption|c
+
+----</pre>
 </div>
 <div title="WikiStyle" creator="leico" modifier="leico" created="201108040628" modified="201310251403" changecount="4">
 <pre>改行してただ打っているだけでも十分メモ帳として機能するわけですが、''強調したい！''とか''表組みにしたい！''とか色々表現したいこともあると思います。
